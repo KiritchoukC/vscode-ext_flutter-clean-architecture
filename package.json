@@ -3,23 +3,48 @@
   "displayName": "flutter-clean-architecture",
   "description": "Add new feature easily with well structure directories",
   "version": "0.0.1",
+  "publisher": "KiritchoukClément",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture"
+  },
   "engines": {
     "vscode": "^1.39.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages"
   ],
+  "keywords": [
+    "clean-architecture",
+    "dart",
+    "flutter",
+    "bloc",
+    "state-management"
+  ],
+  "icon": "assets/logo.png",
   "activationEvents": [
-    "onCommand:extension.helloWorld"
+    "onCommand:extension.new-feature",
+    "workspaceContains:**/pubspec.yaml"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.helloWorld",
-        "title": "Hello World"
+        "command": "extension.new-feature",
+        "title": "New Feature",
+        "category": "Flutter Clean Architecture",
+        "icon": "assets/logo.png"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.new-feature",
+          "group": "cleanArchitectureGroup@1",
+          "when": "explorerResourceIsFolder"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
@@ -31,13 +56,32 @@
   "devDependencies": {
     "@types/glob": "^7.1.1",
     "@types/mocha": "^5.2.6",
-    "@types/node": "^10.12.21",
     "@types/vscode": "^1.39.0",
+    "@types/change-case": "^2.3.1",
+    "@types/js-yaml": "^3.12.1",
+    "@types/lodash": "^4.14.121",
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^12.7.8",
+    "@types/rimraf": "^2.0.2",
+    "@types/semver": "^6.0.2",
     "glob": "^7.1.4",
     "mocha": "^6.1.4",
     "typescript": "^3.3.1",
     "tslint": "^5.12.1",
     "vscode-test": "^1.2.0",
     "cz-conventional-changelog": "^3.0.2"
+  },
+  "dependencies": {
+    "change-case": "^3.1.0",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.15",
+    "mkdirp": "^0.5.1",
+    "semver": "^6.3.0",
+    "cz-conventional-changelog": "^3.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
