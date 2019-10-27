@@ -14,7 +14,7 @@ For example, let's take the counter feature:
 
 ## Installation
 
-This extension can be installed from the [VSCode Marketplace](https://marketplace.visualstudio.com) or by [searching within VSCode](https://code.visualstudio.com/docs/editor/extension-gallery#_search-for-an-extension).
+This extension can be installed from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=KiritchoukC.flutter-clean-architecture) or by [searching within VSCode](https://code.visualstudio.com/docs/editor/extension-gallery#_search-for-an-extension).
 
 ## New Feature Command Usage
 
