@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v0.0.6...v0.0.7) (2019-10-27)
+
+
+### Bug Fixes
+
+* **fix changelox:** remove changelog boilerplate ([1dc6b26](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/commit/1dc6b26))
+
 ### [0.0.6](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v0.0.5...v0.0.6) (2019-10-27)
 
 

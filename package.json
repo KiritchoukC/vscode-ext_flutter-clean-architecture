@@ -2,7 +2,7 @@
   "name": "flutter-clean-architecture",
   "displayName": "New Feature Scaffolding",
   "description": "Add new feature easily with well structured directories",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "KiritchoukC",
   "repository": {
     "type": "git",
