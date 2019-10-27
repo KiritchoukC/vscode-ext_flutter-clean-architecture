@@ -1,65 +1,27 @@
-# flutter-clean-architecture README
+# Flutter Clean Architecture feature scaffolding
 
-This is the README for your extension "flutter-clean-architecture". After writing up a brief description, we recommend including the following sections.
+> ### This extension is based on [felangel](https://github.com/felangel) BLoC extension
 
-## Features
+## Introduction
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Inspired by the [clean architecture tutorial](https://resocoder.com/2019/08/27/flutter-tdd-clean-architecture-course-1-explanation-project-structure/) by [reso coder](https://github.com/ResoCoder), this extension will help you quickly scaffold a feature.
 
-For example if there is an image subfolder under your extension project workspace:
+## Directory structure example
 
-\!\[feature X\]\(images/feature-x.png\)
+For example, let's take the counter feature:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![directory-structure](assets/structure.jpg)
 
-## Requirements
+## Installation
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+This extension can be installed from the [VSCode Marketplace](https://marketplace.visualstudio.com) or by [searching within VSCode](https://code.visualstudio.com/docs/editor/extension-gallery#_search-for-an-extension).
 
-## Extension Settings
+## New Feature Command Usage
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+You can activate the command by launching the command palette (View -> Command Palette) and running "Flutter Clean Architecture: New Feature".
 
-For example:
+![command-demo](assets/command-demo.gif)
 
-This extension contributes the following settings:
+Or you can right click on the directory in which you'd like to create the feature and select the "New Feature" command from the context menu.
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+![contect-demo](assets/context-demo.gif)
