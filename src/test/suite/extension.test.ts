@@ -2,14 +2,43 @@ import * as assert from 'assert';
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
-import * as vscode from 'vscode';
-// import * as myExtension from '../extension';
+// import * as vscode from 'vscode';
+import * as myExtension from '../../extension';
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+suite('getFeaturesDirectoryPath', () => {
+	test('should append features to path if current directory doesn\'t end with features', () => {
+		// arrange
+		const currentDirectory = 'C:\\test\\path';
+		// act
+		const actual = myExtension.getFeaturesDirectoryPath(currentDirectory);
+		// asert
+		assert.equal(actual, 'C:\\test\\path\\features');
+	});
 
-	test('Sample test', () => {
-		assert.equal(-1, [1, 2, 3].indexOf(5));
-		assert.equal(-1, [1, 2, 3].indexOf(0));
+	test('should append features to path if current directory doesn\'t end with features and have a trailing \\', () => {
+		// arrange
+		const currentDirectory = 'C:\\test\\path\\';
+		// act
+		const actual = myExtension.getFeaturesDirectoryPath(currentDirectory);
+		// asert
+		assert.equal(actual, 'C:\\test\\path\\features');
+	});
+
+	test('should not append features to path if current directory end with features', () => {
+		// arrange
+		const currentDirectory = 'C:\\test\\path\\features';
+		// act
+		const actual = myExtension.getFeaturesDirectoryPath(currentDirectory);
+		// asert
+		assert.equal(actual, 'C:\\test\\path\\features');
+	});
+
+	test('should not append features to path if current directory end with features with a trailing \\', () => {
+		// arrange
+		const currentDirectory = 'C:\\test\\path\\features\\';
+		// act
+		const actual = myExtension.getFeaturesDirectoryPath(currentDirectory);
+		// asert
+		assert.equal(actual, 'C:\\test\\path\\features');
 	});
 });

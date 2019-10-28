@@ -62,7 +62,7 @@ export function activate (_context: ExtensionContext) {
   });
 }
 
-async function promptForTargetDirectory(): Promise<string | undefined> {
+export async function promptForTargetDirectory (): Promise<string | undefined> {
   const options: OpenDialogOptions = {
     canSelectMany: false,
     openLabel: "Select a folder to create the feature in",
@@ -77,7 +77,7 @@ async function promptForTargetDirectory(): Promise<string | undefined> {
   });
 }
 
-function promptForFeatureName (): Thenable<string | undefined> {
+export function promptForFeatureName (): Thenable<string | undefined> {
   const blocNamePromptOptions: InputBoxOptions = {
     prompt: "Feature Name",
     placeHolder: "login"
@@ -85,7 +85,7 @@ function promptForFeatureName (): Thenable<string | undefined> {
   return window.showInputBox(blocNamePromptOptions);
 }
 
-async function promptForUseEquatable (): Promise<boolean> {
+export async function promptForUseEquatable (): Promise<boolean> {
   const useEquatablePromptValues: string[] = ["no (default)", "yes (advanced)"];
   const useEquatablePromptOptions: QuickPickOptions = {
     placeHolder:
@@ -101,7 +101,7 @@ async function promptForUseEquatable (): Promise<boolean> {
   return answer === "yes (advanced)";
 }
 
-async function generateBlocCode (
+export async function generateBlocCode (
   blocName: string,
   targetDirectory: string,
   useEquatable: boolean
@@ -119,7 +119,7 @@ async function generateBlocCode (
   ]);
 }
 
-async function generateFeatureArchitecture (
+export async function generateFeatureArchitecture (
   featureName: string,
   targetDirectory: string,
   useEquatable: boolean
@@ -151,26 +151,32 @@ async function generateFeatureArchitecture (
   await generateBlocCode(featureName, presentationDirectoryPath, useEquatable);
 }
 
-function getFeaturesDirectoryPath (currentDirectory: string): string {
+export function getFeaturesDirectoryPath (currentDirectory: string): string {
   // Split the path
   const splitPath = currentDirectory.split('\\');
+
+  // Remove trailing \
+  if (splitPath[splitPath.length - 1] === '') {
+    splitPath.pop();
+  }
+
+  const result = splitPath.join('\\');
 
   // Determines whether we're already in the features directory or not
   const isDirectoryAlreadyFeatures = splitPath[splitPath.length - 1] === 'features';
 
   // If already return the current directory if not, return the current directory with the /features append to it
-  const temp = isDirectoryAlreadyFeatures ? currentDirectory : `${currentDirectory}/features`;
-  return isDirectoryAlreadyFeatures ? currentDirectory : `${currentDirectory}/features`;
+  return isDirectoryAlreadyFeatures ? result : `${result}\\features`;
 }
 
-async function createDirectories (targetDirectory: string, childDirectories: string[]): Promise<void> {
+export async function createDirectories (targetDirectory: string, childDirectories: string[]): Promise<void> {
   // Create the parent directory
   await createDirectory(targetDirectory);
   // Creat the children
   childDirectories.map(async directory => await createDirectory(`${targetDirectory}/${directory}`));
 }
 
-function createDirectory (targetDirectory: string): Promise<void> {
+export function createDirectory (targetDirectory: string): Promise<void> {
   return new Promise((resolve, reject) => {
     mkdirp(targetDirectory, error => {
       if (error) {
@@ -181,7 +187,7 @@ function createDirectory (targetDirectory: string): Promise<void> {
   });
 }
 
-function createBlocEventTemplate (
+export function createBlocEventTemplate (
   blocName: string,
   targetDirectory: string,
   useEquatable: boolean
@@ -207,7 +213,7 @@ function createBlocEventTemplate (
   });
 }
 
-function createBlocStateTemplate (
+export function createBlocStateTemplate (
   blocName: string,
   targetDirectory: string,
   useEquatable: boolean
@@ -233,7 +239,7 @@ function createBlocStateTemplate (
   });
 }
 
-function createBlocTemplate (blocName: string, targetDirectory: string) {
+export function createBlocTemplate (blocName: string, targetDirectory: string) {
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
   const targetPath = `${targetDirectory}/bloc/${snakeCaseBlocName}_bloc.dart`;
   if (existsSync(targetPath)) {
@@ -250,7 +256,7 @@ function createBlocTemplate (blocName: string, targetDirectory: string) {
   });
 }
 
-function createBarrelTemplate (blocName: string, targetDirectory: string) {
+export function createBarrelTemplate (blocName: string, targetDirectory: string) {
   const targetPath = `${targetDirectory}/bloc/bloc.dart`;
   if (existsSync(targetPath)) {
     return new Promise((resolve, reject) => {
