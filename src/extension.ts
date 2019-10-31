@@ -24,32 +24,28 @@ export function activate (_context: ExtensionContext) {
   analyzeDependencies();
 
   commands.registerCommand("extension.new-feature", async (uri: Uri) => {
-    const featureName = await promptForFeatureName();
-    if (!featureName) {
-      window.showErrorMessage("The name must not be empty");
-      return;
-    }
-    if (_.isNil(featureName) || featureName.trim() === "") {
-      window.showErrorMessage("The name must not be empty");
-      return;
-    }
+    // Show feature prompt
+    let featureName = await promptForFeatureName();
 
-    let targetDirectory;
-    if (_.isNil(_.get(uri, "fsPath")) || !lstatSync(uri.fsPath).isDirectory()) {
-      targetDirectory = await promptForTargetDirectory();
-      if (_.isNil(targetDirectory)) {
-        window.showErrorMessage("Please select a valid directory");
-        return;
-      }
-    } else {
-      targetDirectory = uri.fsPath;
+    // Abort if name is not valid
+    if (!isNameValid(featureName)) {
+      window.showErrorMessage('The name must not be empty');
+      return;
+    }
+    featureName = `${featureName}`;
+
+    let targetDirectory = '';
+    try {
+      targetDirectory = await getTargetDirectory(uri);
+    } catch (error) {
+      window.showErrorMessage(error.message);
     }
 
     const useEquatable = await promptForUseEquatable();
 
     const pascalCaseFeatureName = changeCase.pascalCase(featureName.toLowerCase());
     try {
-      await generateFeatureArchitecture(featureName, targetDirectory, useEquatable);
+      await generateFeatureArchitecture(`${featureName}`, targetDirectory, useEquatable);
       window.showInformationMessage(
         `Successfully Generated ${pascalCaseFeatureName} Feature`
       );
@@ -60,6 +56,34 @@ export function activate (_context: ExtensionContext) {
       );
     }
   });
+}
+
+export function isNameValid (featureName: string | undefined): boolean {
+  // Check if feature name exists
+  if (!featureName) {
+    return false;
+  }
+  // Check if feature name is null or white space
+  if (_.isNil(featureName) || featureName.trim() === '') {
+    return false;
+  }
+
+  // Return true if feature name is valid
+  return true;
+}
+
+export async function getTargetDirectory (uri: Uri): Promise<string> {
+  let targetDirectory;
+  if (_.isNil(_.get(uri, "fsPath")) || !lstatSync(uri.fsPath).isDirectory()) {
+    targetDirectory = await promptForTargetDirectory();
+    if (_.isNil(targetDirectory)) {
+      throw Error('Please select a valid directory');
+    }
+  } else {
+    targetDirectory = uri.fsPath;
+  }
+
+  return targetDirectory;
 }
 
 export async function promptForTargetDirectory (): Promise<string | undefined> {
@@ -160,6 +184,7 @@ export function getFeaturesDirectoryPath (currentDirectory: string): string {
     splitPath.pop();
   }
 
+  // Rebuild path
   const result = splitPath.join('\\');
 
   // Determines whether we're already in the features directory or not

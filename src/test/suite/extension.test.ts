@@ -42,3 +42,39 @@ suite('getFeaturesDirectoryPath', () => {
 		assert.equal(actual, 'C:\\test\\path\\features');
 	});
 });
+
+suite('isNameValid', () => {
+	const validNames = ['test', 'qmsdfhjq', 's', 'login', 'space between'];
+	validNames.forEach((featureName) =>  {
+		test('should return true if name is valid', () => {
+			// act
+			const actual = myExtension.isNameValid(featureName);
+			// asert
+			assert.ok(actual);
+		});
+	});
+	test('should return false if name is undefined', () => {
+		// arrange
+		let featureName;
+		// act
+		const actual = myExtension.isNameValid(featureName);
+		// asert
+		assert.ok(!actual);
+	});
+	test('should return false if name is blank', () => {
+		// arrange
+		const featureName = '';
+		// act
+		const actual = myExtension.isNameValid(featureName);
+		// asert
+		assert.ok(!actual);
+	});
+	test('should return false if name is a white space', () => {
+		// arrange
+		const featureName = '    ';
+		// act
+		const actual = myExtension.isNameValid(featureName);
+		// asert
+		assert.ok(!actual);
+	});
+});
