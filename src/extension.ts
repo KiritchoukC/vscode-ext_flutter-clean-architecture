@@ -1,6 +1,7 @@
 import * as _ from "lodash";
 import * as changeCase from "change-case";
 import * as mkdirp from "mkdirp";
+import * as path from 'path';
 
 import {
   commands,
@@ -130,7 +131,7 @@ export async function generateBlocCode (
   targetDirectory: string,
   useEquatable: boolean
 ) {
-  const blocDirectoryPath = `${targetDirectory}/bloc`;
+  const blocDirectoryPath = path.join(targetDirectory, 'bloc');
   if (!existsSync(blocDirectoryPath)) {
     await createDirectory(blocDirectoryPath);
   }
@@ -156,19 +157,19 @@ export async function generateFeatureArchitecture (
   }
 
   // Create the feature directory
-  const featureDirectoryPath = `${featuresDirectoryPath}/${featureName}`;
+  const featureDirectoryPath = path.join(featuresDirectoryPath, featureName);
   await createDirectory(featureDirectoryPath);
 
   // Create the data layer
-  const dataDirectoryPath = `${featureDirectoryPath}/data`;
+  const dataDirectoryPath = path.join(featureDirectoryPath, 'data');
   await createDirectories(dataDirectoryPath, ['datasources', 'models', 'repositories']);
 
   // Create the domain layer
-  const domainDirectoryPath = `${featureDirectoryPath}/domain`;
+  const domainDirectoryPath = path.join(featureDirectoryPath, 'domain');
   await createDirectories(domainDirectoryPath, ['entities', 'repositories', 'usecases']);
 
   // Create the presentation layer
-  const presentationDirectoryPath = `${featureDirectoryPath}/presentation`;
+  const presentationDirectoryPath = path.join(featureDirectoryPath, 'presentation');
   await createDirectories(presentationDirectoryPath, ['bloc', 'pages', 'widgets']);
 
   // Generate the bloc code in the presentation layer
@@ -177,7 +178,7 @@ export async function generateFeatureArchitecture (
 
 export function getFeaturesDirectoryPath (currentDirectory: string): string {
   // Split the path
-  const splitPath = currentDirectory.split('\\');
+  const splitPath = currentDirectory.split(path.sep);
 
   // Remove trailing \
   if (splitPath[splitPath.length - 1] === '') {
@@ -185,20 +186,20 @@ export function getFeaturesDirectoryPath (currentDirectory: string): string {
   }
 
   // Rebuild path
-  const result = splitPath.join('\\');
+  const result = splitPath.join(path.sep);
 
   // Determines whether we're already in the features directory or not
   const isDirectoryAlreadyFeatures = splitPath[splitPath.length - 1] === 'features';
 
   // If already return the current directory if not, return the current directory with the /features append to it
-  return isDirectoryAlreadyFeatures ? result : `${result}\\features`;
+  return isDirectoryAlreadyFeatures ? result : path.join(result, 'features');
 }
 
 export async function createDirectories (targetDirectory: string, childDirectories: string[]): Promise<void> {
   // Create the parent directory
   await createDirectory(targetDirectory);
   // Creat the children
-  childDirectories.map(async directory => await createDirectory(`${targetDirectory}/${directory}`));
+  childDirectories.map(async directory => await createDirectory(path.join(targetDirectory, directory)));
 }
 
 export function createDirectory (targetDirectory: string): Promise<void> {
@@ -218,7 +219,7 @@ export function createBlocEventTemplate (
   useEquatable: boolean
 ) {
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
-  const targetPath = `${targetDirectory}/bloc/${snakeCaseBlocName}_event.dart`;
+  const targetPath = path.join(targetDirectory, 'bloc', `${snakeCaseBlocName}_event.dart`)
   if (existsSync(targetPath)) {
     throw Error(`${snakeCaseBlocName}_event.dart already exists`);
   }
@@ -244,7 +245,7 @@ export function createBlocStateTemplate (
   useEquatable: boolean
 ) {
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
-  const targetPath = `${targetDirectory}/bloc/${snakeCaseBlocName}_state.dart`;
+  const targetPath = path.join(targetDirectory, 'bloc', `${snakeCaseBlocName}_state.dart`)
   if (existsSync(targetPath)) {
     throw Error(`${snakeCaseBlocName}_state.dart already exists`);
   }
@@ -266,7 +267,7 @@ export function createBlocStateTemplate (
 
 export function createBlocTemplate (blocName: string, targetDirectory: string) {
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
-  const targetPath = `${targetDirectory}/bloc/${snakeCaseBlocName}_bloc.dart`;
+  const targetPath = path.join(targetDirectory, 'bloc', `${snakeCaseBlocName}_bloc.dart`)
   if (existsSync(targetPath)) {
     throw Error(`${snakeCaseBlocName}_bloc.dart already exists`);
   }
@@ -282,7 +283,7 @@ export function createBlocTemplate (blocName: string, targetDirectory: string) {
 }
 
 export function createBarrelTemplate (blocName: string, targetDirectory: string) {
-  const targetPath = `${targetDirectory}/bloc/bloc.dart`;
+  const targetPath = path.join(targetDirectory, 'bloc', 'bloc.dart')
   if (existsSync(targetPath)) {
     return new Promise((resolve, reject) => {
       appendFile(targetPath, getBarrelTemplate(blocName), "utf8", (error: any) => {
