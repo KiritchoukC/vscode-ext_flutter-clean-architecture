@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v0.0.11...v0.0.12) (2019-11-26)
+
+
+### Bug Fixes
+
+* **path:** use path library to manipulate paths ([40dfbd1](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/commit/40dfbd1)), closes [#1](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/issues/1)
+
 ### [0.0.11](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v0.0.10...v0.0.11) (2019-10-31)
 
 ### [0.0.10](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v0.0.9...v0.0.10) (2019-10-28)
