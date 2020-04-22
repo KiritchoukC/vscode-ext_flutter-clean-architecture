@@ -11,13 +11,14 @@ export function getBlocStateTemplate(
 
 function getEquatableBlocStateTemplate(blocName: string): string {
   const pascalCaseBlocName = changeCase.pascalCase(blocName.toLowerCase());
-  return `import 'package:equatable/equatable.dart';
+  const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
+  return `part of '${snakeCaseBlocName}_bloc.dart';
 
 abstract class ${pascalCaseBlocName}State extends Equatable {
   const ${pascalCaseBlocName}State();
 }
 
-class Initial${pascalCaseBlocName}State extends ${pascalCaseBlocName}State {
+class ${pascalCaseBlocName}Initial extends ${pascalCaseBlocName}State {
   @override
   List<Object> get props => [];
 }
@@ -26,11 +27,10 @@ class Initial${pascalCaseBlocName}State extends ${pascalCaseBlocName}State {
 
 function getDefaultBlocStateTemplate(blocName: string): string {
   const pascalCaseBlocName = changeCase.pascalCase(blocName.toLowerCase());
-  return `import 'package:meta/meta.dart';
-
+  const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
+  return `part of '${snakeCaseBlocName}_bloc.dart';
 @immutable
 abstract class ${pascalCaseBlocName}State {}
-  
-class Initial${pascalCaseBlocName}State extends ${pascalCaseBlocName}State {}
+class ${pascalCaseBlocName}Initial extends ${pascalCaseBlocName}State {}
 `;
 }
