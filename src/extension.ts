@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import * as changeCase from "change-case";
 import * as mkdirp from "mkdirp";
-import * as path from 'path';
+import * as path from "path";
 
 import {
   commands,
@@ -10,18 +10,17 @@ import {
   OpenDialogOptions,
   QuickPickOptions,
   Uri,
-  window
+  window,
 } from "vscode";
 import { existsSync, lstatSync, writeFile, appendFile } from "fs";
 import {
-  getBarrelTemplate,
   getBlocEventTemplate,
   getBlocStateTemplate,
-  getBlocTemplate
+  getBlocTemplate,
 } from "./templates";
 import { analyzeDependencies } from "./utils";
 
-export function activate (_context: ExtensionContext) {
+export function activate(_context: ExtensionContext) {
   analyzeDependencies();
 
   commands.registerCommand("extension.new-feature", async (uri: Uri) => {
@@ -30,12 +29,12 @@ export function activate (_context: ExtensionContext) {
 
     // Abort if name is not valid
     if (!isNameValid(featureName)) {
-      window.showErrorMessage('The name must not be empty');
+      window.showErrorMessage("The name must not be empty");
       return;
     }
     featureName = `${featureName}`;
 
-    let targetDirectory = '';
+    let targetDirectory = "";
     try {
       targetDirectory = await getTargetDirectory(uri);
     } catch (error) {
@@ -44,9 +43,15 @@ export function activate (_context: ExtensionContext) {
 
     const useEquatable = await promptForUseEquatable();
 
-    const pascalCaseFeatureName = changeCase.pascalCase(featureName.toLowerCase());
+    const pascalCaseFeatureName = changeCase.pascalCase(
+      featureName.toLowerCase()
+    );
     try {
-      await generateFeatureArchitecture(`${featureName}`, targetDirectory, useEquatable);
+      await generateFeatureArchitecture(
+        `${featureName}`,
+        targetDirectory,
+        useEquatable
+      );
       window.showInformationMessage(
         `Successfully Generated ${pascalCaseFeatureName} Feature`
       );
@@ -59,13 +64,13 @@ export function activate (_context: ExtensionContext) {
   });
 }
 
-export function isNameValid (featureName: string | undefined): boolean {
+export function isNameValid(featureName: string | undefined): boolean {
   // Check if feature name exists
   if (!featureName) {
     return false;
   }
   // Check if feature name is null or white space
-  if (_.isNil(featureName) || featureName.trim() === '') {
+  if (_.isNil(featureName) || featureName.trim() === "") {
     return false;
   }
 
@@ -73,12 +78,12 @@ export function isNameValid (featureName: string | undefined): boolean {
   return true;
 }
 
-export async function getTargetDirectory (uri: Uri): Promise<string> {
+export async function getTargetDirectory(uri: Uri): Promise<string> {
   let targetDirectory;
   if (_.isNil(_.get(uri, "fsPath")) || !lstatSync(uri.fsPath).isDirectory()) {
     targetDirectory = await promptForTargetDirectory();
     if (_.isNil(targetDirectory)) {
-      throw Error('Please select a valid directory');
+      throw Error("Please select a valid directory");
     }
   } else {
     targetDirectory = uri.fsPath;
@@ -87,14 +92,14 @@ export async function getTargetDirectory (uri: Uri): Promise<string> {
   return targetDirectory;
 }
 
-export async function promptForTargetDirectory (): Promise<string | undefined> {
+export async function promptForTargetDirectory(): Promise<string | undefined> {
   const options: OpenDialogOptions = {
     canSelectMany: false,
     openLabel: "Select a folder to create the feature in",
-    canSelectFolders: true
+    canSelectFolders: true,
   };
 
-  return window.showOpenDialog(options).then(uri => {
+  return window.showOpenDialog(options).then((uri) => {
     if (_.isNil(uri) || _.isEmpty(uri)) {
       return undefined;
     }
@@ -102,20 +107,20 @@ export async function promptForTargetDirectory (): Promise<string | undefined> {
   });
 }
 
-export function promptForFeatureName (): Thenable<string | undefined> {
+export function promptForFeatureName(): Thenable<string | undefined> {
   const blocNamePromptOptions: InputBoxOptions = {
     prompt: "Feature Name",
-    placeHolder: "login"
+    placeHolder: "login",
   };
   return window.showInputBox(blocNamePromptOptions);
 }
 
-export async function promptForUseEquatable (): Promise<boolean> {
+export async function promptForUseEquatable(): Promise<boolean> {
   const useEquatablePromptValues: string[] = ["no (default)", "yes (advanced)"];
   const useEquatablePromptOptions: QuickPickOptions = {
     placeHolder:
       "Do you want to use the Equatable Package in bloc to override equality comparisons?",
-    canPickMany: false
+    canPickMany: false,
   };
 
   const answer = await window.showQuickPick(
@@ -126,12 +131,12 @@ export async function promptForUseEquatable (): Promise<boolean> {
   return answer === "yes (advanced)";
 }
 
-export async function generateBlocCode (
+async function generateBlocCode(
   blocName: string,
   targetDirectory: string,
   useEquatable: boolean
 ) {
-  const blocDirectoryPath = path.join(targetDirectory, 'bloc');
+  const blocDirectoryPath = `${targetDirectory}/bloc`;
   if (!existsSync(blocDirectoryPath)) {
     await createDirectory(blocDirectoryPath);
   }
@@ -139,17 +144,15 @@ export async function generateBlocCode (
   await Promise.all([
     createBlocEventTemplate(blocName, targetDirectory, useEquatable),
     createBlocStateTemplate(blocName, targetDirectory, useEquatable),
-    createBlocTemplate(blocName, targetDirectory),
-    createBarrelTemplate(blocName, targetDirectory)
+    createBlocTemplate(blocName, targetDirectory, useEquatable),
   ]);
 }
 
-export async function generateFeatureArchitecture (
+export async function generateFeatureArchitecture(
   featureName: string,
   targetDirectory: string,
   useEquatable: boolean
 ) {
-
   // Create the features directory if its does not exist yet
   const featuresDirectoryPath = getFeaturesDirectoryPath(targetDirectory);
   if (!existsSync(featuresDirectoryPath)) {
@@ -161,27 +164,42 @@ export async function generateFeatureArchitecture (
   await createDirectory(featureDirectoryPath);
 
   // Create the data layer
-  const dataDirectoryPath = path.join(featureDirectoryPath, 'data');
-  await createDirectories(dataDirectoryPath, ['datasources', 'models', 'repositories']);
+  const dataDirectoryPath = path.join(featureDirectoryPath, "data");
+  await createDirectories(dataDirectoryPath, [
+    "datasources",
+    "models",
+    "repositories",
+  ]);
 
   // Create the domain layer
-  const domainDirectoryPath = path.join(featureDirectoryPath, 'domain');
-  await createDirectories(domainDirectoryPath, ['entities', 'repositories', 'usecases']);
+  const domainDirectoryPath = path.join(featureDirectoryPath, "domain");
+  await createDirectories(domainDirectoryPath, [
+    "entities",
+    "repositories",
+    "usecases",
+  ]);
 
   // Create the presentation layer
-  const presentationDirectoryPath = path.join(featureDirectoryPath, 'presentation');
-  await createDirectories(presentationDirectoryPath, ['bloc', 'pages', 'widgets']);
+  const presentationDirectoryPath = path.join(
+    featureDirectoryPath,
+    "presentation"
+  );
+  await createDirectories(presentationDirectoryPath, [
+    "bloc",
+    "pages",
+    "widgets",
+  ]);
 
   // Generate the bloc code in the presentation layer
   await generateBlocCode(featureName, presentationDirectoryPath, useEquatable);
 }
 
-export function getFeaturesDirectoryPath (currentDirectory: string): string {
+export function getFeaturesDirectoryPath(currentDirectory: string): string {
   // Split the path
   const splitPath = currentDirectory.split(path.sep);
 
   // Remove trailing \
-  if (splitPath[splitPath.length - 1] === '') {
+  if (splitPath[splitPath.length - 1] === "") {
     splitPath.pop();
   }
 
@@ -189,22 +207,29 @@ export function getFeaturesDirectoryPath (currentDirectory: string): string {
   const result = splitPath.join(path.sep);
 
   // Determines whether we're already in the features directory or not
-  const isDirectoryAlreadyFeatures = splitPath[splitPath.length - 1] === 'features';
+  const isDirectoryAlreadyFeatures =
+    splitPath[splitPath.length - 1] === "features";
 
   // If already return the current directory if not, return the current directory with the /features append to it
-  return isDirectoryAlreadyFeatures ? result : path.join(result, 'features');
+  return isDirectoryAlreadyFeatures ? result : path.join(result, "features");
 }
 
-export async function createDirectories (targetDirectory: string, childDirectories: string[]): Promise<void> {
+export async function createDirectories(
+  targetDirectory: string,
+  childDirectories: string[]
+): Promise<void> {
   // Create the parent directory
   await createDirectory(targetDirectory);
   // Creat the children
-  childDirectories.map(async directory => await createDirectory(path.join(targetDirectory, directory)));
+  childDirectories.map(
+    async (directory) =>
+      await createDirectory(path.join(targetDirectory, directory))
+  );
 }
 
-export function createDirectory (targetDirectory: string): Promise<void> {
+function createDirectory(targetDirectory: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    mkdirp(targetDirectory, error => {
+    mkdirp(targetDirectory, (error) => {
       if (error) {
         return reject(error);
       }
@@ -213,13 +238,13 @@ export function createDirectory (targetDirectory: string): Promise<void> {
   });
 }
 
-export function createBlocEventTemplate (
+function createBlocEventTemplate(
   blocName: string,
   targetDirectory: string,
   useEquatable: boolean
 ) {
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
-  const targetPath = path.join(targetDirectory, 'bloc', `${snakeCaseBlocName}_event.dart`)
+  const targetPath = `${targetDirectory}/bloc/${snakeCaseBlocName}_event.dart`;
   if (existsSync(targetPath)) {
     throw Error(`${snakeCaseBlocName}_event.dart already exists`);
   }
@@ -228,7 +253,7 @@ export function createBlocEventTemplate (
       targetPath,
       getBlocEventTemplate(blocName, useEquatable),
       "utf8",
-      (error: any) => {
+      (error) => {
         if (error) {
           reject(error);
           return;
@@ -239,13 +264,13 @@ export function createBlocEventTemplate (
   });
 }
 
-export function createBlocStateTemplate (
+function createBlocStateTemplate(
   blocName: string,
   targetDirectory: string,
   useEquatable: boolean
 ) {
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
-  const targetPath = path.join(targetDirectory, 'bloc', `${snakeCaseBlocName}_state.dart`)
+  const targetPath = `${targetDirectory}/bloc/${snakeCaseBlocName}_state.dart`;
   if (existsSync(targetPath)) {
     throw Error(`${snakeCaseBlocName}_state.dart already exists`);
   }
@@ -254,7 +279,7 @@ export function createBlocStateTemplate (
       targetPath,
       getBlocStateTemplate(blocName, useEquatable),
       "utf8",
-      (error: any) => {
+      (error) => {
         if (error) {
           reject(error);
           return;
@@ -265,43 +290,28 @@ export function createBlocStateTemplate (
   });
 }
 
-export function createBlocTemplate (blocName: string, targetDirectory: string) {
+function createBlocTemplate(
+  blocName: string,
+  targetDirectory: string,
+  useEquatable: boolean
+) {
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
-  const targetPath = path.join(targetDirectory, 'bloc', `${snakeCaseBlocName}_bloc.dart`)
+  const targetPath = `${targetDirectory}/bloc/${snakeCaseBlocName}_bloc.dart`;
   if (existsSync(targetPath)) {
     throw Error(`${snakeCaseBlocName}_bloc.dart already exists`);
   }
   return new Promise(async (resolve, reject) => {
-    writeFile(targetPath, getBlocTemplate(blocName), "utf8", (error: any) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      resolve();
-    });
-  });
-}
-
-export function createBarrelTemplate (blocName: string, targetDirectory: string) {
-  const targetPath = path.join(targetDirectory, 'bloc', 'bloc.dart')
-  if (existsSync(targetPath)) {
-    return new Promise((resolve, reject) => {
-      appendFile(targetPath, getBarrelTemplate(blocName), "utf8", (error: any) => {
+    writeFile(
+      targetPath,
+      getBlocTemplate(blocName, useEquatable),
+      "utf8",
+      (error) => {
         if (error) {
           reject(error);
           return;
         }
         resolve();
-      });
-    });
-  }
-  return new Promise(async (resolve, reject) => {
-    writeFile(targetPath, getBarrelTemplate(blocName), "utf8", (error: any) => {
-      if (error) {
-        reject(error);
-        return;
       }
-      resolve();
-    });
+    );
   });
 }
