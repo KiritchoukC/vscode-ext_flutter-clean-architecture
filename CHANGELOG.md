@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v0.0.12...v0.0.14) (2020-07-08)
+
+
+### Features
+
+* **bloc-5-migration:** migrate the extension to bloc 5.x ([45da4b5](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/commit/45da4b5)), closes [#4](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/issues/4)
+
 ### [0.0.12](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v0.0.11...v0.0.12) (2019-11-26)
 
 
