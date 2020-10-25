@@ -2,7 +2,7 @@ import * as yaml from "js-yaml";
 import { getPubspecPath } from "./get-pubspec-path";
 import { workspace, Uri } from "vscode";
 
-export async function getPubspec (): Promise<Record<string, any> | undefined> {
+export async function getPubspec () {
   const pubspecPath = getPubspecPath();
   if (pubspecPath) {
     try {
