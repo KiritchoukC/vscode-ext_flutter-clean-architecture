@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-name: Deploy Extension
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
