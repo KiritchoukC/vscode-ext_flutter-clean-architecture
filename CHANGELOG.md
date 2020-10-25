@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v1.0.5...v1.0.6) (2020-10-25)
+
+
+### Bug Fixes
+
+* **vscode-engine:** set vscode engine to 1.31.0 ([b1087b8](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/commit/b1087b8))
+
 ### [1.0.5](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v1.0.4...v1.0.5) (2020-10-25)
 
 
