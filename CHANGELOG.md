@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v1.0.4...v1.0.5) (2020-10-25)
+
+
+### Bug Fixes
+
+* **get-pubspec:** remove typed return of the getPubspec function ([e12c8f4](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/commit/e12c8f4))
+
+### [1.0.3](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v1.0.2...v1.0.3) (2020-10-25)
+
+
+### Bug Fixes
+
+* **update-bloc-code:** update the bloc's code with original extension's code ([a5ccf25](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/commit/a5ccf25)), closes [#9](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/issues/9)
+
 ### [1.0.4](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v1.0.2...v1.0.4) (2020-10-25)
 
 ### [1.0.3](https://github.com/KiritchoukC/vscode-ext_flutter-clean-architecture/compare/v1.0.2...v1.0.3) (2020-10-25)
