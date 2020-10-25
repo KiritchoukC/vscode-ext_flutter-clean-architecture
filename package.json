@@ -65,7 +65,7 @@
     "@types/node": "^12.7.8",
     "@types/rimraf": "^2.0.2",
     "@types/semver": "^6.0.2",
-    "@types/vscode": "^1.39.0",
+    "@types/vscode": "^1.31.0",
     "cz-conventional-changelog": "^3.0.2",
     "glob": "^7.1.4",
     "mocha": "^6.1.4",
