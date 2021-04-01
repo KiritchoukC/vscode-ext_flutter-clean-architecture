@@ -25,3 +25,4 @@ You can activate the command by launching the command palette (View -> Command P
 Or you can right click on the directory in which you'd like to create the feature and select the "New Feature" command from the context menu.
 
 ![contect-demo](assets/context-demo.gif)
+
