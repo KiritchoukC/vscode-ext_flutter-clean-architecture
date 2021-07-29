@@ -36,7 +36,7 @@ export async function analyzeDependencies () {
     },
     {
       name: "bloc",
-      version: "^6.0.0",
+      version: "^7.0.0",
       actions: [
         {
           name: "Open Migration Guide",
@@ -49,7 +49,7 @@ export async function analyzeDependencies () {
 
     {
       name: "flutter_bloc",
-      version: "^6.0.0",
+      version: "^7.0.0",
       actions: [
         {
           name: "Open Migration Guide",
@@ -62,7 +62,7 @@ export async function analyzeDependencies () {
     { name: "angular_bloc", version: "^4.0.0", actions: [] },
     {
       name: "hydrated_bloc",
-      version: "^6.0.0",
+      version: "^7.0.0",
       actions: [
         {
           name: "Open Migration Guide",
@@ -78,7 +78,7 @@ export async function analyzeDependencies () {
   const devDependenciesToAnalyze = [
     {
       name: "bloc_test",
-      version: "^7.0.0",
+      version: "^8.0.0",
       actions: [
         {
           name: "Open Migration Guide",
