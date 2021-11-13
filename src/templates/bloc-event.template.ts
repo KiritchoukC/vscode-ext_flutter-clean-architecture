@@ -13,8 +13,12 @@ function getEquatableBlocEventTemplate (blocName: string): string {
   const pascalCaseBlocName = changeCase.pascalCase(blocName.toLowerCase());
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
   return `part of '${snakeCaseBlocName}_bloc.dart';
+
 abstract class ${pascalCaseBlocName}Event extends Equatable {
   const ${pascalCaseBlocName}Event();
+
+  @override
+  List<Object> get props => [];
 }
 `;
 }

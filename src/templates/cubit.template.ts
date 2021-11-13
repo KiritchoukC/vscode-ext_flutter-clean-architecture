@@ -10,9 +10,11 @@ function getEquatableCubitTemplate (cubitName: string) {
   const pascalCaseCubitName = changeCase.pascalCase(cubitName.toLowerCase());
   const snakeCaseCubitName = changeCase.snakeCase(cubitName.toLowerCase());
   const cubitState = `${pascalCaseCubitName}State`;
-  return `import 'package:cubit/cubit.dart';
+  return `import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 part '${snakeCaseCubitName}_state.dart';
+
 class ${pascalCaseCubitName}Cubit extends Cubit<${cubitState}> {
   ${pascalCaseCubitName}Cubit() : super(${pascalCaseCubitName}Initial());
 }
@@ -23,9 +25,11 @@ function getDefaultCubitTemplate (cubitName: string) {
   const pascalCaseCubitName = changeCase.pascalCase(cubitName.toLowerCase());
   const snakeCaseCubitName = changeCase.snakeCase(cubitName.toLowerCase());
   const cubitState = `${pascalCaseCubitName}State`;
-  return `import 'package:cubit/cubit.dart';
+  return `import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+
 part '${snakeCaseCubitName}_state.dart';
+
 class ${pascalCaseCubitName}Cubit extends Cubit<${cubitState}> {
   ${pascalCaseCubitName}Cubit() : super(${pascalCaseCubitName}Initial());
 }
