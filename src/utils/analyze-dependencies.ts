@@ -16,11 +16,11 @@ interface Action {
   callback: Function;
 }
 
-export async function analyzeDependencies () {
+export async function analyzeDependencies() {
   const dependenciesToAnalyze = [
     {
       name: "equatable",
-      version: "^2.0.0",
+      version: "^2.0.3",
       actions: [
         {
           name: "Open Migration Guide",
@@ -36,7 +36,7 @@ export async function analyzeDependencies () {
     },
     {
       name: "bloc",
-      version: "^7.2.0",
+      version: "^8.0.1",
       actions: [
         {
           name: "Open Migration Guide",
@@ -49,7 +49,7 @@ export async function analyzeDependencies () {
 
     {
       name: "flutter_bloc",
-      version: "^7.3.0",
+      version: "^8.0.0",
       actions: [
         {
           name: "Open Migration Guide",
@@ -59,10 +59,10 @@ export async function analyzeDependencies () {
         },
       ],
     },
-    { name: "angular_bloc", version: "^4.0.0", actions: [] },
+    { name: "angular_bloc", version: "^8.0.0", actions: [] },
     {
       name: "hydrated_bloc",
-      version: "^7.2.0",
+      version: "^8.0.0",
       actions: [
         {
           name: "Open Migration Guide",
@@ -72,13 +72,13 @@ export async function analyzeDependencies () {
         },
       ],
     },
-    { name: "sealed_flutter_bloc", version: "^4.0.0", actions: [] },
+    { name: "sealed_flutter_bloc", version: "^8.0.0", actions: [] },
   ];
 
   const devDependenciesToAnalyze = [
     {
       name: "bloc_test",
-      version: "^8.5.0",
+      version: "^9.0.1",
       actions: [
         {
           name: "Open Migration Guide",
@@ -98,7 +98,7 @@ export async function analyzeDependencies () {
   checkForUpgrades(devDependenciesToAnalyze, devDependencies);
 }
 
-function checkForUpgrades (
+function checkForUpgrades(
   dependenciesToAnalyze: Dependency[],
   dependencies: object[]
 ) {
