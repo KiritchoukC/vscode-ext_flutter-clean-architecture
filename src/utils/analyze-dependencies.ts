@@ -36,7 +36,7 @@ export async function analyzeDependencies() {
     },
     {
       name: "bloc",
-      version: "^8.0.1",
+      version: "^8.0.2",
       actions: [
         {
           name: "Open Migration Guide",
@@ -49,7 +49,7 @@ export async function analyzeDependencies() {
 
     {
       name: "flutter_bloc",
-      version: "^8.0.0",
+      version: "^8.0.1",
       actions: [
         {
           name: "Open Migration Guide",
@@ -78,7 +78,7 @@ export async function analyzeDependencies() {
   const devDependenciesToAnalyze = [
     {
       name: "bloc_test",
-      version: "^9.0.1",
+      version: "^9.0.2",
       actions: [
         {
           name: "Open Migration Guide",
