@@ -194,7 +194,7 @@ export async function generateFeatureArchitecture (
   // Create the data layer
   const dataDirectoryPath = path.join(featureDirectoryPath, "data");
   await createDirectories(dataDirectoryPath, [
-    "datasources",
+    "data_sources",
     "models",
     "repositories",
   ]);
