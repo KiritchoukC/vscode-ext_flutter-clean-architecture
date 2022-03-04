@@ -36,7 +36,7 @@ export async function analyzeDependencies() {
     },
     {
       name: "bloc",
-      version: "^8.0.2",
+      version: "^8.0.3",
       actions: [
         {
           name: "Open Migration Guide",
@@ -78,7 +78,7 @@ export async function analyzeDependencies() {
   const devDependenciesToAnalyze = [
     {
       name: "bloc_test",
-      version: "^9.0.2",
+      version: "^9.0.3",
       actions: [
         {
           name: "Open Migration Guide",
