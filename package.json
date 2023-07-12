@@ -91,7 +91,7 @@
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.21",
     "mkdirp": "^0.5.1",
-    "semver": "^6.3.0"
+    "semver": "^5.7.2"
   },
   "config": {
     "commitizen": {
