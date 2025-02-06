@@ -20,7 +20,7 @@ export async function analyzeDependencies() {
   const dependenciesToAnalyze = [
     {
       name: "equatable",
-      version: "^2.0.3",
+      version: "^2.0.7",
       actions: [
         {
           name: "Open Migration Guide",
@@ -36,7 +36,7 @@ export async function analyzeDependencies() {
     },
     {
       name: "bloc",
-      version: "^8.0.3",
+      version: "^9.0.0",
       actions: [
         {
           name: "Open Migration Guide",
@@ -49,7 +49,7 @@ export async function analyzeDependencies() {
 
     {
       name: "flutter_bloc",
-      version: "^8.0.1",
+      version: "^9.0.0",
       actions: [
         {
           name: "Open Migration Guide",
@@ -59,10 +59,10 @@ export async function analyzeDependencies() {
         },
       ],
     },
-    { name: "angular_bloc", version: "^8.0.0", actions: [] },
+    { name: "angular_bloc", version: "^9.0.0", actions: [] },
     {
       name: "hydrated_bloc",
-      version: "^8.0.0",
+      version: "^10.0.0",
       actions: [
         {
           name: "Open Migration Guide",
@@ -72,13 +72,13 @@ export async function analyzeDependencies() {
         },
       ],
     },
-    { name: "sealed_flutter_bloc", version: "^8.0.0", actions: [] },
+    { name: "sealed_flutter_bloc", version: "^8.0.2", actions: [] },
   ];
 
   const devDependenciesToAnalyze = [
     {
       name: "bloc_test",
-      version: "^9.0.3",
+      version: "^10.0.0",
       actions: [
         {
           name: "Open Migration Guide",
