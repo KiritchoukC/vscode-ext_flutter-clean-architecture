@@ -81,7 +81,7 @@
     "glob": "^7.1.4",
     "mocha": "^6.1.4",
     "tslint": "^5.12.1",
-    "typescript": "^3.3.1",
+    "typescript": "^5.8.3",
     "vsce": "^1.81.1",
     "vscode-test": "^1.2.0"
   },
