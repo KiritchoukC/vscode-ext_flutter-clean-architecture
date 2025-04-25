@@ -4,15 +4,25 @@ on:
   push:
     branches:
       - master
-
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - uses: lannonbr/vsce-action@4.0.0
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          args: 'publish -p $VSCE_PAT'
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          node-version: '20' # or whatever you're using
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Compile TypeScript
+        run: yarn compile
+
+      - name: Install latest vsce globally
+        run: npm install -g vsce@latest
+
+      - name: Publish VS Code Extension
+        run: vsce publish --yarn -p ${{ secrets.VSCE_PAT }}
