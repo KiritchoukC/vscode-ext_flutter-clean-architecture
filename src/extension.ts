@@ -49,7 +49,11 @@ export async function Go (uri: Uri, useCubit: boolean) {
   try {
     targetDirectory = await getTargetDirectory(uri);
   } catch (error) {
-    window.showErrorMessage(error.message);
+    if (error instanceof Error) {
+      window.showErrorMessage(error.message);
+    } else {
+      window.showErrorMessage(JSON.stringify(error));
+    }
   }
 
   const useEquatable = true;

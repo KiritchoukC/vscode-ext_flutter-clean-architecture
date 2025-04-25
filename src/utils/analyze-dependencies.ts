@@ -100,7 +100,7 @@ export async function analyzeDependencies() {
 
 function checkForUpgrades(
   dependenciesToAnalyze: Dependency[],
-  dependencies: object[]
+  dependencies: any
 ) {
   for (let i = 0; i < dependenciesToAnalyze.length; i++) {
     const dependency = dependenciesToAnalyze[i];
